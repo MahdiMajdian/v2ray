@@ -162,6 +162,8 @@ document.addEventListener('DOMContentLoaded', () => {
 	const encodeInput = document.getElementById('encode-input');
 	const encodeOutput = document.getElementById('encode-output');
 
+	encodeButton.disabled = true;
+
 	encodeInput.addEventListener('input', () => {
 		try {
 			const encoded = encodeInput.value
@@ -175,14 +177,15 @@ document.addEventListener('DOMContentLoaded', () => {
 		} catch (e) {
 			encodeOutput.textContent = 'Error encoding input: ' + e.message;
 		}
+		encodeButton.disabled = !encodeOutput.textContent;
 	});
 
 	encodeButton.addEventListener('click', () => {
 		navigator.clipboard.writeText(encodeOutput.textContent).then(() => {
-			encodeButton.textContent = 'کپی شد!';
+			encodeButton.textContent = 'کپی شد !';
 			setTimeout(() => {
-				encodeButton.textContent = 'کپی متن قاطی شده';
-			}, 2000);
+				encodeButton.textContent = 'کپی';
+			}, 3000);
 		});
 	});
 
@@ -190,6 +193,8 @@ document.addEventListener('DOMContentLoaded', () => {
 	const decodeButton = document.getElementById('decode-button');
 	const decodeInput = document.getElementById('decode-input');
 	const decodeOutput = document.getElementById('decode-output');
+
+	decodeButton.disabled = true;
 
 	decodeInput.addEventListener('input', () => {
 		try {
@@ -214,14 +219,15 @@ document.addEventListener('DOMContentLoaded', () => {
 		} catch (e) {
 			decodeOutput.textContent = 'Error decoding input: ' + e.message;
 		}
+		decodeButton.disabled = !decodeOutput.textContent;
 	});
 
 	decodeButton.addEventListener('click', () => {
 		navigator.clipboard.writeText(decodeOutput.textContent).then(() => {
-			decodeButton.textContent = 'کپی شد!';
+			decodeButton.textContent = 'کپی شد !';
 			setTimeout(() => {
-				decodeButton.textContent = 'کپی متن باز شده';
-			}, 2000);
+				decodeButton.textContent = 'کپی';
+			}, 3000);
 		});
 	});
 });

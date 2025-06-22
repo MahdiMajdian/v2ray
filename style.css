@@ -108,8 +108,13 @@ button {
     margin-top: 1rem;
 }
 
-button:hover {
+button:not(:disabled):hover {
     background-color: var(--button-hover-bg);
+}
+
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
 }
 
 .tab-content > button {
