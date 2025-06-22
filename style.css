@@ -112,6 +112,10 @@ button:hover {
     background-color: var(--button-hover-bg);
 }
 
+.tab-content > button {
+    width: 100%;
+}
+
 .result-box {
     position: relative;
     margin-top: 1rem;

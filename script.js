@@ -158,9 +158,9 @@ document.addEventListener('DOMContentLoaded', () => {
 	};
 
 	// Encode
+	const encodeButton = document.getElementById('encode-button');
 	const encodeInput = document.getElementById('encode-input');
 	const encodeOutput = document.getElementById('encode-output');
-	const copyEncodeOutput = document.getElementById('copy-encode-output');
 
 	encodeInput.addEventListener('input', () => {
 		try {
@@ -177,19 +177,19 @@ document.addEventListener('DOMContentLoaded', () => {
 		}
 	});
 
-	copyEncodeOutput.addEventListener('click', () => {
+	encodeButton.addEventListener('click', () => {
 		navigator.clipboard.writeText(encodeOutput.textContent).then(() => {
-			copyEncodeOutput.textContent = 'Copied!';
+			encodeButton.textContent = 'کپی شد!';
 			setTimeout(() => {
-				copyEncodeOutput.textContent = 'Copy';
+				encodeButton.textContent = 'کپی متن قاطی شده';
 			}, 2000);
 		});
 	});
 
 	// Decode
+	const decodeButton = document.getElementById('decode-button');
 	const decodeInput = document.getElementById('decode-input');
 	const decodeOutput = document.getElementById('decode-output');
-	const copyDecodeOutput = document.getElementById('copy-decode-output');
 
 	decodeInput.addEventListener('input', () => {
 		try {
@@ -216,11 +216,11 @@ document.addEventListener('DOMContentLoaded', () => {
 		}
 	});
 
-	copyDecodeOutput.addEventListener('click', () => {
+	decodeButton.addEventListener('click', () => {
 		navigator.clipboard.writeText(decodeOutput.textContent).then(() => {
-			copyDecodeOutput.textContent = 'Copied!';
+			decodeButton.textContent = 'کپی شد!';
 			setTimeout(() => {
-				copyDecodeOutput.textContent = 'Copy';
+				decodeButton.textContent = 'کپی متن باز شده';
 			}, 2000);
 		});
 	});
