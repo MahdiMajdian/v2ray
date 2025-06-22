@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" dir="rtl">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>V2ray Encoder/Decoder</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <h1>ارسال v2ray از طریق پیامک</h1>
+    </header>
+    <div class="tabs">
+      <button class="tab-button active" data-tab="encode">قاطی کردن</button>
+      <button class="tab-button" data-tab="decode">باز کردن</button>
+    </div>
+    <div class="content">
+      <div id="encode" class="tab-content active">
+        <textarea id="encode-input" placeholder="آدرس v2ray رو وارد کن..."></textarea>
+        <button id="encode-button">ببندش</button>
+        <div class="result-box">
+          <pre id="encode-output"></pre>
+          <button id="copy-encode-output">Copy</button>
+        </div>
+      </div>
+      <div id="decode" class="tab-content">
+        <textarea id="decode-input" placeholder="Paste your vmess:// URL here..."></textarea>
+        <button id="decode-button">بازش کن</button>
+        <div class="result-box">
+          <pre id="decode-output"></pre>
+          <button id="copy-decode-output">Copy</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,142 @@
+:root {
+    --background-color: #000;
+    --text-color: #fff;
+    --border-color: #333;
+    --accent-color: #fff;
+    --button-bg: #1a1a1a;
+    --button-hover-bg: #2a2a2a;
+    --input-bg: #1c1c1c;
+    --result-bg: #111;
+}
+
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    font-size: 16px;
+}
+
+.container {
+    width: 90%;
+    max-width: 600px;
+    text-align: center;
+}
+
+header {
+    margin-bottom: 2rem;
+}
+
+header h1 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.tabs {
+    display: flex;
+    justify-content: center;
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 1.5rem;
+}
+
+.tab-button {
+    background: none;
+    border: none;
+    color: var(--text-color);
+    padding: 1rem 1.5rem;
+    cursor: pointer;
+    font-size: 1rem;
+    position: relative;
+    opacity: 0.7;
+}
+
+.tab-button.active {
+    opacity: 1;
+}
+
+.tab-button.active::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--accent-color);
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+textarea {
+    width: 100%;
+    background-color: var(--input-bg);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 0.75rem;
+    font-family: "SF Mono", "Consolas", "Menlo", monospace;
+    font-size: 0.9rem;
+    min-height: 150px;
+    resize: vertical;
+    box-sizing: border-box;
+}
+
+textarea:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 1px var(--accent-color);
+}
+
+button {
+    background-color: var(--button-bg);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    margin-top: 1rem;
+}
+
+button:hover {
+    background-color: var(--button-hover-bg);
+}
+
+.result-box {
+    position: relative;
+    margin-top: 1rem;
+    background-color: var(--result-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 1rem;
+    min-height: 100px;
+    text-align: left;
+}
+
+.result-box pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    margin: 0;
+    font-family: "SF Mono", "Consolas", "Menlo", monospace;
+    font-size: 0.9rem;
+}
+
+.result-box button {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    margin: 0;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.8rem;
+    background-color: #222;
+} 
