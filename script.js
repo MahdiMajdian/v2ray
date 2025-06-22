@@ -21,6 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			});
 		});
 	});
+	const capitalIndicator = 'ه';
 
 	const toFaMapper = {
 		a: 'ش',
@@ -61,14 +62,14 @@ document.addEventListener('DOMContentLoaded', () => {
 		9: '۹',
 		' ': ' ',
 		':': ':',
-		'/': '/',
+		'/': 'ت',
 		'!': '!',
 		'@': '@',
 		'#': '#',
 		$: '$',
 		'%': '%',
 		'^': '^',
-		'&': '&',
+		'&': 'ا',
 		'*': '*',
 		'(': '(',
 		')': ')',
@@ -76,11 +77,10 @@ document.addEventListener('DOMContentLoaded', () => {
 		_: '_',
 		'+': '+',
 		'?': '?',
-		'=': '=',
-		'&': '&',
+		'=': 'چ',
 		'#': '#',
 		$: '$',
-		'%': '%',
+		'%': 'ص',
 		'.': '.',
 		',': ',',
 		';': ';',
@@ -129,14 +129,14 @@ document.addEventListener('DOMContentLoaded', () => {
 		'۹': '9',
 		' ': ' ',
 		':': ':',
-		'/': '/',
+		ت: '/',
 		'!': '!',
 		'@': '@',
 		'#': '#',
 		$: '$',
 		'%': '%',
 		'^': '^',
-		'&': '&',
+		ا: '&',
 		'*': '*',
 		'(': '(',
 		')': ')',
@@ -144,11 +144,10 @@ document.addEventListener('DOMContentLoaded', () => {
 		_: '_',
 		'+': '+',
 		'?': '?',
-		'=': '=',
-		'&': '&',
+		چ: '=',
 		'#': '#',
 		$: '$',
-		'%': '%',
+		ص: '%',
 		'.': '.',
 		',': ',',
 		';': ';',
@@ -168,7 +167,8 @@ document.addEventListener('DOMContentLoaded', () => {
 			const encoded = encodeInput.value
 				.split('')
 				.map((letter) => {
-					return toFaMapper[letter];
+					const prefix = isUpperCase(letter) ? capitalIndicator : '';
+					return prefix + toFaMapper[letter.toLowerCase()];
 				})
 				.join('');
 			encodeOutput.textContent = encoded;
@@ -194,9 +194,21 @@ document.addEventListener('DOMContentLoaded', () => {
 	decodeInput.addEventListener('input', () => {
 		try {
 			let input = decodeInput.value;
+			let isNextCapital = false;
 			const decoded = input
 				.split('')
-				.map((letter) => toEnMapper[letter])
+				.map((letter) => {
+					if (letter === capitalIndicator) {
+						isNextCapital = true;
+						return '';
+					}
+
+					const res = isNextCapital
+						? toEnMapper[letter].toUpperCase()
+						: toEnMapper[letter];
+					isNextCapital = false;
+					return res;
+				})
 				.join('');
 			decodeOutput.textContent = decoded;
 		} catch (e) {
