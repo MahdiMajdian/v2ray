@@ -9,6 +9,26 @@
     --result-bg: #111;
 }
 
+@font-face {
+  font-family: 'Vazirmatn';
+  src: url('assets/Vazirmatn-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Vazirmatn';
+  src: url('assets/Vazirmatn-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+body, button, textarea, input, h1, h2, h3, h4, h5, h6 {
+  font-family: 'Vazirmatn', sans-serif;
+}
+
 body {
     background-color: var(--background-color);
     color: var(--text-color);
@@ -27,13 +47,9 @@ body {
     text-align: center;
 }
 
-header {
-    margin-bottom: 2rem;
-}
-
 header h1 {
     font-size: 2rem;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0rem;
 }
 
 .tabs {
@@ -148,4 +164,15 @@ button:disabled {
     padding: 0.25rem 0.5rem;
     font-size: 0.8rem;
     background-color: #222;
-} 
+}
+
+#install-btn {
+    margin-bottom: 2rem;
+    width: 90%;
+    padding: 1rem 0;
+    font-weight: 600;
+    background: #eeeeee;
+    color: #000000;
+    border-radius: 8px;
+    cursor: pointer;
+}
