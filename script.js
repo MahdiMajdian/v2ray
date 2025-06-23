@@ -241,4 +241,35 @@ document.addEventListener('DOMContentLoaded', () => {
 				encodeCopyButton.textContent = 'Error while copying.';
 			});
 	});
+
+	// PWA Install Button Logic
+	const installBtn = document.getElementById('install-btn');
+	let deferredPrompt;
+
+	window.addEventListener('beforeinstallprompt', (e) => {
+		e.preventDefault();
+		deferredPrompt = e;
+		installBtn.hidden = false;
+	});
+
+	installBtn.addEventListener('click', async () => {
+		if (!deferredPrompt) return;
+		installBtn.disabled = true;
+		deferredPrompt.prompt();
+		const { outcome } = await deferredPrompt.userChoice;
+		if (outcome === 'accepted') {
+			installBtn.textContent = 'برنامه نصب شد!';
+			setTimeout(() => {
+				installBtn.hidden = true;
+			}, 3000);
+		} else {
+			installBtn.textContent = 'Install App';
+			installBtn.hidden = false;
+		}
+		deferredPrompt = null;
+	});
 });
+
+if ('serviceWorker' in navigator) {
+	navigator.serviceWorker.register('sw.js');
+}
