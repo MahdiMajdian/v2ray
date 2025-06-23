@@ -100,7 +100,7 @@ button {
     background-color: var(--button-bg);
     color: var(--text-color);
     border: 1px solid var(--border-color);
-    border-radius: 6px;
+    border-radius: 6px 6px 0 0;
     padding: 0.75rem 1.5rem;
     font-size: 1rem;
     cursor: pointer;

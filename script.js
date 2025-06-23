@@ -2,10 +2,6 @@ document.addEventListener('DOMContentLoaded', () => {
 	const tabs = document.querySelectorAll('.tab-button');
 	const contents = document.querySelectorAll('.tab-content');
 
-	function isUpperCase(char) {
-		return char >= 'A' && char <= 'Z';
-	}
-
 	tabs.forEach((tab) => {
 		tab.addEventListener('click', () => {
 			tabs.forEach((t) => t.classList.remove('active'));
@@ -21,6 +17,11 @@ document.addEventListener('DOMContentLoaded', () => {
 			});
 		});
 	});
+
+	function isUpperCase(char) {
+		return char >= 'A' && char <= 'Z';
+	}
+
 	const capitalIndicator = 'ه';
 
 	const toFaMapper = {
@@ -158,11 +159,11 @@ document.addEventListener('DOMContentLoaded', () => {
 	};
 
 	// Encode
-	const encodeButton = document.getElementById('encode-button');
+	const encodeCopyButton = document.getElementById('encode-copy');
 	const encodeInput = document.getElementById('encode-input');
 	const encodeOutput = document.getElementById('encode-output');
 
-	encodeButton.disabled = true;
+	encodeCopyButton.disabled = true;
 
 	encodeInput.addEventListener('input', () => {
 		try {
@@ -177,24 +178,29 @@ document.addEventListener('DOMContentLoaded', () => {
 		} catch (e) {
 			encodeOutput.textContent = 'Error encoding input: ' + e.message;
 		}
-		encodeButton.disabled = !encodeOutput.textContent;
+		encodeCopyButton.disabled = !encodeOutput.textContent;
 	});
 
-	encodeButton.addEventListener('click', () => {
-		navigator.clipboard.writeText(encodeOutput.textContent).then(() => {
-			encodeButton.textContent = 'کپی شد !';
-			setTimeout(() => {
-				encodeButton.textContent = 'کپی';
-			}, 3000);
-		});
+	encodeCopyButton.addEventListener('click', () => {
+		navigator.clipboard
+			.writeText(encodeOutput.textContent)
+			.then(() => {
+				encodeCopyButton.textContent = 'کپی شد !';
+				setTimeout(() => {
+					encodeCopyButton.textContent = 'کپی';
+				}, 3000);
+			})
+			.catch(() => {
+				encodeCopyButton.textContent = 'Error while copying.';
+			});
 	});
 
 	// Decode
-	const decodeButton = document.getElementById('decode-button');
+	const decodeCopyButton = document.getElementById('decode-copy');
 	const decodeInput = document.getElementById('decode-input');
 	const decodeOutput = document.getElementById('decode-output');
 
-	decodeButton.disabled = true;
+	decodeCopyButton.disabled = true;
 
 	decodeInput.addEventListener('input', () => {
 		try {
@@ -217,17 +223,22 @@ document.addEventListener('DOMContentLoaded', () => {
 				.join('');
 			decodeOutput.textContent = decoded;
 		} catch (e) {
-			decodeOutput.textContent = 'Error decoding input: ' + e.message;
+			decodeOutput.textContent = 'Error decoding input';
 		}
-		decodeButton.disabled = !decodeOutput.textContent;
+		decodeCopyButton.disabled = !decodeOutput.textContent;
 	});
 
-	decodeButton.addEventListener('click', () => {
-		navigator.clipboard.writeText(decodeOutput.textContent).then(() => {
-			decodeButton.textContent = 'کپی شد !';
-			setTimeout(() => {
-				decodeButton.textContent = 'کپی';
-			}, 3000);
-		});
+	decodeCopyButton.addEventListener('click', () => {
+		navigator.clipboard
+			.writeText(decodeOutput.textContent)
+			.then(() => {
+				decodeCopyButton.textContent = 'کپی شد !';
+				setTimeout(() => {
+					decodeCopyButton.textContent = 'کپی';
+				}, 3000);
+			})
+			.catch(() => {
+				encodeCopyButton.textContent = 'Error while copying.';
+			});
 	});
 });
