@@ -1,3 +1,17 @@
+// invert Map (key:value -> value:key)
+const invertMap = map => {
+  const inverted = {};
+
+  for (const [key, value] of Object.entries(map)) {
+    if (inverted.hasOwnProperty(value)) {
+      if (!Array.isArray(inverted[value])) inverted[value] = [inverted[value]];
+      inverted[value].push(key);
+    } else inverted[value] = key;
+  }
+
+  return inverted;
+}
+
 document.addEventListener('DOMContentLoaded', () => {
 	const tabs = document.querySelectorAll('.tab-button');
 	const contents = document.querySelectorAll('.tab-content');
@@ -91,72 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		'`': '`',
 	};
 
-	const toEnMapper = {
-		ش: 'a',
-		ل: 'b',
-		ض: 'c',
-		ب: 'd',
-		ع: 'e',
-		گ: 'f',
-		و: 'g',
-		ظ: 'h',
-		س: 'i',
-		ژ: 'j',
-		ک: 'k',
-		م: 'l',
-		ن: 'm',
-		پ: 'n',
-		غ: 'o',
-		ح: 'p',
-		ز: 'q',
-		ط: 'r',
-		ر: 's',
-		ق: 't',
-		ث: 'u',
-		ف: 'v',
-		ی: 'w',
-		د: 'x',
-		ذ: 'y',
-		خ: 'z',
-		'۰': '0',
-		'۱': '1',
-		'۲': '2',
-		'۳': '3',
-		'۴': '4',
-		'۵': '5',
-		'۶': '6',
-		'۷': '7',
-		'۸': '8',
-		'۹': '9',
-		' ': ' ',
-		':': ':',
-		ت: '/',
-		'!': '!',
-		'@': '@',
-		'#': '#',
-		$: '$',
-		'%': '%',
-		'^': '^',
-		ا: '&',
-		'*': '*',
-		'(': '(',
-		')': ')',
-		'-': '-',
-		_: '_',
-		'+': '+',
-		'?': '?',
-		چ: '=',
-		'#': '#',
-		$: '$',
-		ص: '%',
-		'.': '.',
-		',': ',',
-		';': ';',
-		':': ':',
-		'|': '|',
-		'~': '~',
-		'`': '`',
-	};
+	const toEnMapper = invertMap(toFaMapper);
 
 	// Encode
 	const encodeCopyButton = document.getElementById('encode-copy');
