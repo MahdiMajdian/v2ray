@@ -176,3 +176,40 @@ button:disabled {
     border-radius: 8px;
     cursor: pointer;
 }
+
+/* iOS install banner */
+.ios-banner {
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 1.5rem;
+    background: rgba(30, 30, 30, 0.95);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    padding: 0.6rem 0.9rem;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.5);
+    z-index: 9999;
+    max-width: 92%;
+}
+.ios-banner__content {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+    justify-content: center;
+}
+.ios-banner__text {
+    font-size: 0.9rem;
+    line-height: 1.2;
+}
+.ios-banner__close {
+    background: transparent;
+    border: none;
+    color: var(--text-color);
+    font-size: 1.2rem;
+    padding: 0.1rem 0.4rem;
+    cursor: pointer;
+}
+.ios-banner[hidden] {
+    display: none !important;
+}

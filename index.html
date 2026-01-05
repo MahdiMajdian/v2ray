@@ -12,6 +12,13 @@
 </head>
 
 <body>
+  <!-- iOS Install Banner (hidden by default) -->
+  <div id="ios-install-banner" class="ios-banner" hidden>
+    <div class="ios-banner__content">
+      <span class="ios-banner__text">برای نصب، دکمهٔ اشتراک ⤴︎ را بزنید و "Add to Home Screen" را انتخاب کنید.</span>
+      <button id="ios-install-close" class="ios-banner__close" aria-label="Close">×</button>
+    </div>
+  </div>
   <div class="container">
     <button id="install-btn" hidden>نصب برنامه</button>
     <header>
@@ -39,7 +46,6 @@
     </div>
   </div>
   <script src="script.js"></script>
-  <script src="sw.js"></script>
 </body>
 
 </html>

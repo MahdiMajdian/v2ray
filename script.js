@@ -216,8 +216,48 @@ document.addEventListener('DOMContentLoaded', () => {
 		}
 		deferredPrompt = null;
 	});
+
+	// iOS install banner behavior (dismiss persistence)
+	const iosBanner = document.getElementById('ios-install-banner');
+	const iosClose = document.getElementById('ios-install-close');
+	const IOS_BANNER_DISMISSED_KEY = 'iosBannerDismissed';
+
+	if (iosClose) {
+		iosClose.addEventListener('click', () => {
+			if (iosBanner) iosBanner.hidden = true;
+			try {
+				localStorage.setItem(IOS_BANNER_DISMISSED_KEY, '1');
+			} catch (e) {
+				// ignore storage errors
+			}
+		});
+	}
 });
 
 if ('serviceWorker' in navigator) {
 	navigator.serviceWorker.register('sw.js');
+}
+
+// iOS detection and banner show logic (runs after DOMContentLoaded)
+const isIos = /iPhone|iPad|iPod/.test(navigator.userAgent);
+const isInStandaloneMode = ('standalone' in window.navigator) && (window.navigator.standalone);
+const IOS_BANNER_DISMISSED_KEY = 'iosBannerDismissed';
+
+// Try to show the banner only if: on iOS, not in standalone mode, and not previously dismissed
+if (isIos && !isInStandaloneMode) {
+	try {
+		const dismissed = localStorage.getItem(IOS_BANNER_DISMISSED_KEY);
+		if (!dismissed) {
+			document.addEventListener('DOMContentLoaded', () => {
+				const iosInstructions = document.getElementById('ios-install-banner');
+				if (iosInstructions) iosInstructions.hidden = false;
+			});
+		}
+	} catch (e) {
+		// localStorage may be unavailable; still show banner
+		document.addEventListener('DOMContentLoaded', () => {
+			const iosInstructions = document.getElementById('ios-install-banner');
+			if (iosInstructions) iosInstructions.hidden = false;
+		});
+	}
 }
