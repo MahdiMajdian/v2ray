@@ -1,15 +1,14 @@
 // invert Map (key:value -> value:key)
 const invertMap = map => {
-  const inverted = {};
+  const invertedMap = {};
 
   for (const [key, value] of Object.entries(map)) {
-    if (inverted.hasOwnProperty(value)) {
-      if (!Array.isArray(inverted[value])) inverted[value] = [inverted[value]];
-      inverted[value].push(key);
-    } else inverted[value] = key;
+    if (!invertedMap.hasOwnProperty(value)) {
+      invertedMap[value] = key;
+	}
   }
 
-  return inverted;
+  return invertedMap;
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -212,7 +211,7 @@ document.addEventListener('DOMContentLoaded', () => {
 				installBtn.hidden = true;
 			}, 3000);
 		} else {
-			installBtn.textContent = 'Install App';
+			installBtn.textContent = 'نصب برنامه توسط کاربر رد شد!';
 			installBtn.hidden = false;
 		}
 		deferredPrompt = null;
