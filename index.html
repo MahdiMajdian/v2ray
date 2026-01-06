@@ -3,21 +3,53 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>V2ray Encoder/Decoder</title>
   <link rel="stylesheet" href="style.css">
   <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
   <link rel="manifest" href="manifest.json" />
-
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 </head>
 
 <body>
-  <div id="ios-install-banner" class="ios-banner" hidden>
-    <div class="ios-banner__content">
-      <span class="ios-banner__text">برای نصب، دکمهٔ اشتراک ⤴︎ را بزنید و "Add to Home Screen" را انتخاب کنید.</span>
-      <button id="ios-install-close" class="ios-banner__close" aria-label="Close">×</button>
+  <div id="ios-install-banner" class="ios-instructions" hidden>
+    <div class="ios-instructions__header">
+      <h3 class="ios-instructions__title">نصب برنامه</h3>
+      <button id="ios-install-close" class="ios-instructions__close" aria-label="Close">×</button>
     </div>
+    <ul class="ios-instructions__steps">
+      <li class="ios-instructions__step">
+        <span class="ios-instructions__step-number">۱</span>
+        <span>روی <span class="ios-instructions__icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+              xmlns="http://www.w3.org/2000/svg">
+              <circle cx="5" cy="12" r="2" fill="currentColor" />
+              <circle cx="12" cy="12" r="2" fill="currentColor" />
+              <circle cx="19" cy="12" r="2" fill="currentColor" />
+            </svg></span> کلیک کنید.</span>
+      </li>
+      <li class="ios-instructions__step">
+        <span class="ios-instructions__step-number">۲</span>
+        <span>روی دکمه‌ی اشتراک <span class="ios-instructions__icon"><svg width="20" height="20" viewBox="0 0 24 24"
+              fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 15V3M12 3L8 7M12 3L16 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round" />
+              <path
+                d="M9 11H6C4.89543 11 4 11.8954 4 13V19C4 20.1046 4.89543 21 6 21H18C19.1046 21 20 20.1046 20 19V13C20 11.8954 19.1046 11 18 11H15"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg></span> کلیک کنید.</span>
+      </li>
+      <li class="ios-instructions__step">
+        <span class="ios-instructions__step-number">۳</span>
+        <span>با اسکرول کردن به پایین گزینه‌ <b>Add to Home Screen</b> را پیدا و انتخاب کنید.</span>
+      </li>
+      <li class="ios-instructions__step">
+        <span class="ios-instructions__step-number">۴</span>
+        <span>در بالای صفحه دکمه <b>Add</b> را بزنید.</span>
+      </li>
+    </ul>
   </div>
+
   <div class="container">
     <button id="install-btn" hidden>نصب برنامه</button>
     <header>
@@ -33,14 +65,14 @@
         <div class="result-box">
           <pre id="encode-output"></pre>
         </div>
-        <button id="encode-copy">کپی</button>
+        <button id="encode-copy" class="copy-btn" disabled>کپی</button>
       </div>
       <div id="decode" class="tab-content">
         <textarea id="decode-input" placeholder="آدرس قاطی شده رو وارد کن..."></textarea>
         <div class="result-box">
           <pre id="decode-output"></pre>
         </div>
-        <button id="decode-copy">کپی</button>
+        <button id="decode-copy" class="copy-btn" disabled>کپی</button>
       </div>
     </div>
   </div>
