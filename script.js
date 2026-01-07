@@ -21,6 +21,13 @@ document.addEventListener('DOMContentLoaded', () => {
 			tab.classList.add('active');
 
 			const target = tab.getAttribute('data-tab');
+			// GA Tracking: Tab switch
+			if (typeof gtag === 'function') {
+				gtag('event', 'tab_switch', {
+					'tab_name': target
+				});
+			}
+
 			contents.forEach((content) => {
 				if (content.id === target) {
 					content.classList.add('active');
@@ -123,6 +130,13 @@ document.addEventListener('DOMContentLoaded', () => {
 				})
 				.join('');
 			encodeOutput.textContent = encoded;
+			
+			// GA Tracking: Encode action
+			if (typeof gtag === 'function' && encoded) {
+				gtag('event', 'encode_config', {
+					'char_count': encodeInput.value.length
+				});
+			}
 		} catch (e) {
 			encodeOutput.textContent = 'Error encoding input: ' + e.message;
 		}
@@ -134,12 +148,24 @@ document.addEventListener('DOMContentLoaded', () => {
 			.writeText(encodeOutput.textContent)
 			.then(() => {
 				encodeCopyButton.textContent = 'کپی شد !';
+				// GA Tracking: Copy Encode
+				if (typeof gtag === 'function') {
+					gtag('event', 'copy_output', {
+						'type': 'encode'
+					});
+				}
 				setTimeout(() => {
 					encodeCopyButton.textContent = 'کپی';
 				}, 3000);
 			})
 			.catch(() => {
 				encodeCopyButton.textContent = 'Error while copying.';
+				// GA Tracking: Copy Error
+				if (typeof gtag === 'function') {
+					gtag('event', 'copy_error', {
+						'type': 'encode'
+					});
+				}
 			});
 	});
 
@@ -170,6 +196,13 @@ document.addEventListener('DOMContentLoaded', () => {
 				})
 				.join('');
 			decodeOutput.textContent = decoded;
+
+			// GA Tracking: Decode action
+			if (typeof gtag === 'function' && decoded) {
+				gtag('event', 'decode_config', {
+					'char_count': decodeInput.value.length
+				});
+			}
 		} catch (e) {
 			decodeOutput.textContent = 'Error decoding input';
 		}
@@ -181,12 +214,24 @@ document.addEventListener('DOMContentLoaded', () => {
 			.writeText(decodeOutput.textContent)
 			.then(() => {
 				decodeCopyButton.textContent = 'کپی شد !';
+				// GA Tracking: Copy Decode
+				if (typeof gtag === 'function') {
+					gtag('event', 'copy_output', {
+						'type': 'decode'
+					});
+				}
 				setTimeout(() => {
 					decodeCopyButton.textContent = 'کپی';
 				}, 3000);
 			})
 			.catch(() => {
 				encodeCopyButton.textContent = 'Error while copying.';
+				// GA Tracking: Copy Error
+				if (typeof gtag === 'function') {
+					gtag('event', 'copy_error', {
+						'type': 'decode'
+					});
+				}
 			});
 	});
 
@@ -198,6 +243,10 @@ document.addEventListener('DOMContentLoaded', () => {
 		e.preventDefault();
 		deferredPrompt = e;
 		installBtn.hidden = false;
+		// GA Tracking: Install prompt available
+		if (typeof gtag === 'function') {
+			gtag('event', 'pwa_prompt_available');
+		}
 	});
 
 	installBtn.addEventListener('click', async () => {
@@ -207,12 +256,20 @@ document.addEventListener('DOMContentLoaded', () => {
 		const { outcome } = await deferredPrompt.userChoice;
 		if (outcome === 'accepted') {
 			installBtn.textContent = 'برنامه نصب شد!';
+			// GA Tracking: Install accepted via button
+			if (typeof gtag === 'function') {
+				gtag('event', 'pwa_install_accepted');
+			}
 			setTimeout(() => {
 				installBtn.hidden = true;
 			}, 3000);
 		} else {
 			installBtn.textContent = 'نصب برنامه توسط کاربر رد شد!';
 			installBtn.hidden = false;
+			// GA Tracking: Install dismissed
+			if (typeof gtag === 'function') {
+				gtag('event', 'pwa_install_dismissed');
+			}
 		}
 		deferredPrompt = null;
 	});
@@ -225,6 +282,10 @@ document.addEventListener('DOMContentLoaded', () => {
 	if (iosClose) {
 		iosClose.addEventListener('click', () => {
 			if (iosBanner) iosBanner.hidden = true;
+			// GA Tracking: iOS banner dismissed
+			if (typeof gtag === 'function') {
+				gtag('event', 'ios_install_banner_dismissed');
+			}
 			try {
 				localStorage.setItem(IOS_BANNER_DISMISSED_KEY, '1');
 			} catch (e) {
@@ -243,12 +304,27 @@ document.addEventListener('DOMContentLoaded', () => {
 			const dismissed = localStorage.getItem(IOS_BANNER_DISMISSED_KEY);
 			if (!dismissed && iosBanner) {
 				iosBanner.hidden = false;
+				// GA Tracking: iOS banner shown
+				if (typeof gtag === 'function') {
+					gtag('event', 'ios_install_banner_shown');
+				}
 			}
 		} catch (e) {
 			// localStorage may be unavailable; still show banner
 			if (iosBanner) iosBanner.hidden = false;
+			// GA Tracking: iOS banner shown (despite storage error)
+			if (typeof gtag === 'function') {
+				gtag('event', 'ios_install_banner_shown', { 'storage_error': true });
+			}
 		}
 	}
+
+	// Track actual installation (generic for PWA)
+	window.addEventListener('appinstalled', () => {
+		if (typeof gtag === 'function') {
+			gtag('event', 'pwa_installed');
+		}
+	});
 });
 
 if ('serviceWorker' in navigator) {
